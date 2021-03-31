@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Stonks: {{ticker}}</h1>    
+    <h2></h2>
+    <h3><a href="/getDividends?t={{ticker}}">Dividends</a></h3>
+    <h4>
+        <ul></ul>
+    </h4>
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.get('/getLivePrice?t={{ticker}}', function(data){
+                var list_items = "";
+                for (var i = 0; i < data.length; i++) {
+                    list_items +=  data[i];
+                }
+                document.querySelector('h2').innerHTML = list_items
+            });
+            $.get('/getQuoteTable?t={{ticker}}', function(data){
+                var list_items = "";
+                //console.log(data.length);
+                //console.log(data);
+                if (data.length > 0){
+                    var obj = $.parseJSON(data);
+                    for(key in obj){
+                        list_items += "<li>" + key + ": " + obj[key] + "</li>";
+                    }
+                }
+                document.querySelector('ul').innerHTML = list_items
+                ;
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block head %}
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Day Most Active:</h1>    
+    <h2>
+    </h2>
+    <h3>
+      <table id="export_table">
+        <tr>
+            <!-- <th>Key</th> -->
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price (Intraday)</th>
+            <th>Change</th>
+            <th>% Change</th>
+            <th>Volume</th>
+            <th>Avg Vol (3 month)</th>
+            <th>Market Cap</th>
+            <th>PE Ratio (TTM)</th>
+        </tr>
+        {% for key,value in data.iterrows() %}
+          <tr>
+              <!-- <td> {{key}} </td> -->
+              <td>{{ value['Symbol'] }}</td>
+              <td>{{ value['Name'] }}</td>
+              <td>{{ value['Price (Intraday)'] }}</td>
+              <td>{{ value['Change'] }}</td>
+              <td>{{ value['% Change'] }}</td>
+              <td>{{ value['Volume'] }}</td>
+              <td>{{ value['Avg Vol (3 month)'] }}</td>
+              <td>{{ value['Market Cap'] }}</td>
+              <td>{{ value['PE Ratio (TTM)'] }}</td>
+          </tr>
+    {% endfor %}         
+    </table>      
+    </h3>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        });
+    </script>
+   
+{% endblock %}
